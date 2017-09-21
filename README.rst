@@ -34,6 +34,9 @@ to ``testing/index.rst`` instead, then you could write::
 
     test.rst testing/index.rst
 
+For examples, refer to the samples used in the `tests
+<sphinxcontrib/redirects/tests/roots>`__.
+
 Contributing
 ------------
 
