@@ -27,7 +27,13 @@ def generate_redirects(app):
         app.info("Could not find redirects file at '%s'" % path)
         return
 
-    in_suffix = app.config.source_suffix[0]
+    in_suffix = app.config.source_suffix
+    if isinstance(in_suffix, list):
+        in_suffix = in_suffix[0]
+    if isinstance(in_suffix, dict):
+        app.debug("app.config.source_suffix is a dictionary type. "
+                 "Defaulting source_suffix to '.rst'")
+        in_suffix = ".rst"
 
     # TODO(stephenfin): Add support for DirectoryHTMLBuilder
     if not type(app.builder) == builders.StandaloneHTMLBuilder:
