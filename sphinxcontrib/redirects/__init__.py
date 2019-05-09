@@ -31,13 +31,13 @@ def generate_redirects(app):
     if isinstance(in_suffix, list):
         in_suffix = in_suffix[0]
     if isinstance(in_suffix, dict):
-        app.warn("app.config.source_suffix is a dictionary type. "
+        app.debug("app.config.source_suffix is a dictionary type. "
                  "Defaulting source_suffix to '.rst'")
         in_suffix = ".rst"
 
     if not (type(app.builder) == builders.StandaloneHTMLBuilder or type(app.builder) == builders.DirectoryHTMLBuilder):
         app.warn("The 'sphinxcontib-redirects' plugin is only supported "
-                 "by the 'html' and 'dirhtml' builder. Skipping...")
+                 "by the 'html' and 'dirhtml' builder, but you are using '%s'. Skipping..." % type(app.builder))
 
     dirhtml = False
     if type(app.builder) == builders.DirectoryHTMLBuilder:
