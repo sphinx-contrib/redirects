@@ -13,6 +13,7 @@
 import os
 
 from sphinx.builders import html as builders
+from sphinx.builders import linkcheck as linkcheckbuilders
 
 TEMPLATE = """<html>
   <head><meta http-equiv="refresh" content="0; url=%s"/></head>
@@ -31,9 +32,13 @@ def generate_redirects(app):
     if isinstance(in_suffix, list):
         in_suffix = in_suffix[0]
     if isinstance(in_suffix, dict):
-        app.debug("app.config.source_suffix is a dictionary type. "
+        app.info("app.config.source_suffix is a dictionary type. "
                  "Defaulting source_suffix to '.rst'")
         in_suffix = ".rst"
+
+    if type(app.builder) == linkcheckbuilders.CheckExternalLinksBuilder:
+        app.info("Detected 'linkcheck' builder in use so skipping generating redirects")
+        return
 
     if not (type(app.builder) == builders.StandaloneHTMLBuilder or type(app.builder) == builders.DirectoryHTMLBuilder):
         app.warn("The 'sphinxcontib-redirects' plugin is only supported "
