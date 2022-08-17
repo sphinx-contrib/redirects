@@ -6,6 +6,12 @@ This contrib extension, `sphinxcontrib.redirects`, provides a Sphinx extension
 for generating JavaScript-driven redirects for moved pages. It currently only
 supports the `html` builder (``sphinx.builders.html.SingleFileHTMLBuilder``).
 
+.. note::
+
+    The `sphinxext-rediraffe <https://pypi.org/project/sphinxext-rediraffe/>`__
+    extension appears to provide many more features that this package and
+    should probably be preferred for new projects.
+
 Usage
 -----
 
