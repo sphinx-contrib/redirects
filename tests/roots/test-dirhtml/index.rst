@@ -1,0 +1,6 @@
+Test Redirects
+==============
+
+.. toctree::
+
+   test

@@ -50,3 +50,20 @@ def test_nested_dir(app, status, warning):
         '<head><meta http-equiv="refresh" content="0; url=../../test.html"/></head>'
         in content
     )
+
+
+@pytest.mark.sphinx(
+    'dirhtml',
+    testroot='dirhtml',
+    confoverrides={'extensions': ['sphinxcontrib.redirects']},
+)
+def test_dirhtml(app, status, warning):
+    """Ensure things work with the dirhtml builder.
+    """
+    app.builder.build_all()
+
+    content = (app.outdir / 'testing' / 'index.html').read_text()
+    assert (
+        '<head><meta http-equiv="refresh" content="0; url=../test/"/></head>'
+        in content
+    )

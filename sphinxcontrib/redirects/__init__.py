@@ -12,7 +12,8 @@
 
 import os
 
-from sphinx.builders import html as builders
+from sphinx.builders import html as html_builder
+from sphinx.builders import dirhtml as dirhtml_builder
 from sphinx.util import logging
 
 logger = logging.getLogger(__name__)
@@ -35,13 +36,18 @@ def generate_redirects(app):
     else:
         in_suffixes = app.config.source_suffix
 
-    # TODO(stephenfin): Add support for DirectoryHTMLBuilder
-    if not type(app.builder) == builders.StandaloneHTMLBuilder:
+    if not isinstance(app.builder, html_builder.StandaloneHTMLBuilder):
         logger.warn(
-            "The 'sphinxcontrib-redirects' plugin is only supported "
-            "by the 'html' builder. Skipping..."
+            "The 'sphinxcontib-redirects' plugin is only supported "
+            "for the 'html' and 'dirhtml' builder, but you are using '%s'. "
+            "Skipping...", type(app.builder)
         )
         return
+
+    from_suffix = to_suffix = '.html'
+    if type(app.builder) == dirhtml_builder.DirectoryHTMLBuilder:
+        from_suffix = '/index.html'
+        to_suffix = '/'
 
     with open(path) as redirects:
         for line in redirects.readlines():
@@ -51,14 +57,14 @@ def generate_redirects(app):
 
             for in_suffix in in_suffixes:
                 if from_path.endswith(in_suffix):
-                    from_path = from_path.replace(in_suffix, '.html')
+                    from_path = from_path.replace(in_suffix, from_suffix)
                     to_path_prefix = (
                         '..%s'
                         % os.path.sep
                         * (len(from_path.split(os.path.sep)) - 1)
                     )
                     to_path = to_path_prefix + to_path.replace(
-                        in_suffix, '.html'
+                        in_suffix, to_suffix
                     )
 
             if not to_path:
