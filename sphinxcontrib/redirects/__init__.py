@@ -52,9 +52,14 @@ def generate_redirects(app):
             for in_suffix in in_suffixes:
                 if from_path.endswith(in_suffix):
                     from_path = from_path.replace(in_suffix, '.html')
-                    to_path_prefix = '..%s' % os.path.sep * (
-                        len(from_path.split(os.path.sep)) - 1)
-                    to_path = to_path_prefix + to_path.replace(in_suffix, '.html')
+                    to_path_prefix = (
+                        '..%s'
+                        % os.path.sep
+                        * (len(from_path.split(os.path.sep)) - 1)
+                    )
+                    to_path = to_path_prefix + to_path.replace(
+                        in_suffix, '.html'
+                    )
 
             if not to_path:
                 raise Exception('failed to find input file!')
