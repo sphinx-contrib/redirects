@@ -1,14 +1,8 @@
-#!/usr/bin/env python
-import setuptools
+#!/usr/bin/env python3
 
-# In python < 2.7.4, a lazy loading of package `pbr` will break
-# setuptools if some other modules registered functions in `atexit`.
-# solution from: http://bugs.python.org/issue15881#msg170215
-try:
-    import multiprocessing  # flake8: noqa
-except ImportError:
-    pass
+import setuptools
 
 setuptools.setup(
     setup_requires=['pbr'],
-    pbr=True)
+    pbr=True,
+)
