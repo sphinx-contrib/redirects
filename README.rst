@@ -9,7 +9,7 @@ supports the `html` builder (``sphinx.builders.html.SingleFileHTMLBuilder``).
 .. note::
 
     The `sphinxext-rediraffe <https://pypi.org/project/sphinxext-rediraffe/>`__
-    extension appears to provide many more features that this package and
+    extension appears to provide many more features than this package and
     should probably be preferred for new projects.
 
 Usage
