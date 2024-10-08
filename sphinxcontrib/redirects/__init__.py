@@ -45,7 +45,7 @@ def generate_redirects(app):
         return
 
     from_suffix = to_suffix = '.html'
-    if type(app.builder) == dirhtml_builder.DirectoryHTMLBuilder:
+    if type(app.builder) is dirhtml_builder.DirectoryHTMLBuilder:
         from_suffix = '/index.html'
         to_suffix = '/'
 
